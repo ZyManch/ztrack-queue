@@ -69,7 +69,7 @@ class QueueAccessor {
     }
 
     public function push($item, $eta = null) {
-        return $this->_queue->push($item, $eta);
+        return $this->_queue->push(serialize($item), $eta);
     }
 
     /**
@@ -78,7 +78,11 @@ class QueueAccessor {
      * @throws \Phive\Queue\Exception\NoItemException
      */
     public function pop() {
-        return $this->_queue->pop();
+        $result = $this->_queue->pop();
+        if (!$result) {
+            return $result;
+        }
+        return unserialize($result);
     }
 
     /**
