@@ -1,0 +1,17 @@
+{
+    "name": "zymanch/ztrack-queue",
+    "description": "zTrackQueue",
+    "version":"1.0-dev",
+
+    "require": {
+        "php": ">=5.3.2",
+        "rybakit/phive-queue": "0.2.0"
+    },
+
+    "autoload": {
+        "classmap": [
+            "controllers",
+            "components"
+        ]
+    }
+}
