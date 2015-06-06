@@ -9,7 +9,7 @@ try {
 
     $mergedConfig = array_merge_config($staticConfig, $config);
 
-    include '../protected/vendor/autoload.php';
+    include '../vendor/autoload.php';
 
     $url = explode('?', ltrim($_SERVER['REQUEST_URI'], '/'), 2);
     $url = explode('/', $url[0]);

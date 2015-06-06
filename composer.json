@@ -10,9 +10,9 @@
 
     "autoload": {
         "classmap": [
-            "controllers",
-            "components",
-            "commands"
+            "protected/controllers",
+            "protected/components",
+            "protected/commands"
         ]
     }
 }
