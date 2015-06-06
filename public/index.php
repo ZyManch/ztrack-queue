@@ -13,17 +13,17 @@ try {
 
     $url = explode('?', ltrim($_SERVER['REQUEST_URI'], '/'), 2);
     $url = explode('/', $url[0]);
-    $controller = (isset($url[0]) ? $url[0] : 'index');
+    $controller = (isset($url[0]) && $url[0] ? $url[0] : 'index');
     $action = (isset($url[1]) ? $url[1] : 'index');
 
     $controllerClass = ucfirst($controller) . 'ControllerQueue';
     $actionMethod = 'action' . ucfirst($action);
     if (!class_exists($controllerClass)) {
-        throw new Exception('Controller not found');
+        throw new Exception('Controller not found: '.$controllerClass);
     }
     $controller = new $controllerClass($mergedConfig);
     if (!method_exists($controller, $actionMethod)) {
-        throw new Exception('Action not found');
+        throw new Exception('Action not found:'.$actionMethod);
     }
 
     $controller->$actionMethod();

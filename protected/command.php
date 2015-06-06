@@ -9,7 +9,7 @@ try {
 
     $mergedConfig = array_merge_config($staticConfig, $config);
 
-    include '../autoload.php';
+    include '../vendor/autoload.php';
 
     $params = array();
     foreach (array_slice($argv,1) as $arg) {
