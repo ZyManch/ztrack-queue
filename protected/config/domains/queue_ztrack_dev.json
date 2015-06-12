@@ -1,0 +1,5 @@
+{
+    "queue" : {
+        "error":"sqlite:filename=E:/Denwer/home/ztrack.dev/protected/queue/error.sqlite"
+    }
+}

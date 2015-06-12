@@ -1,5 +1,14 @@
 <?php
 try {
+    if (!isset($_SERVER['argv'][1])) {
+        throw new Exception('Execution must contain domain name: php '.basename(__FILE__).' <domain> <command>');
+    }
+    $secureName = preg_replace('/([^a-z0-9]+)/','_',ltrim(strtolower($_SERVER['argv'][1]),'w.'));
+    $securePath = dirname(__FILE__).'/config/domains/'.$secureName.'.json';
+    if (!file_exists($securePath)) {
+        throw new Exception('Secure file is missed');
+    }
+    $secure = json_decode(file_get_contents($securePath),1);
     $config = dirname(__FILE__) . '/config/main.php';
     $staticConfig = dirname(__FILE__) . '/config/static_config.php';
 
@@ -12,7 +21,7 @@ try {
     include '../vendor/autoload.php';
 
     $params = array();
-    foreach (array_slice($argv,1) as $arg) {
+        foreach (array_slice($_SERVER['argv'],2) as $arg) {
         if (!in_array($arg,array(__FILE__,pathinfo(__FILE__,PATHINFO_FILENAME)))) {
             if (substr($arg,0,2)=='--') {
                 $arg = explode('=',ltrim($arg,'-'),2);

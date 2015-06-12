@@ -1,5 +1,12 @@
 <?php
 try {
+    $secureName = preg_replace('/([^a-z0-9]+)/','_',ltrim(strtolower($_SERVER['SERVER_NAME']),'w.'));
+    $securePath = dirname(__FILE__).'/../protected/config/domains/'.$secureName.'.json';
+    if (!file_exists($securePath)) {
+        print 'Secure file is missed';
+        return;
+    }
+    $secure = json_decode(file_get_contents($securePath),1);
     $config = dirname(__FILE__) . '/../protected/config/main.php';
     $staticConfig = dirname(__FILE__) . '/../protected/config/static_config.php';
 
@@ -8,7 +15,6 @@ try {
     require_once dirname(__FILE__) . '/../protected/merge.php';
 
     $mergedConfig = array_merge_config($staticConfig, $config);
-
     include '../vendor/autoload.php';
 
     $url = explode('?', ltrim($_SERVER['REQUEST_URI'], '/'), 2);
