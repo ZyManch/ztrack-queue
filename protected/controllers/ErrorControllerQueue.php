@@ -31,7 +31,7 @@ class ErrorControllerQueue extends AbstractControllerQueue {
 
     public function actionRollbar() {
         $result = $this->_getBodyRequest();
-        if (!isset($_GET['token']) || !$_GET['token']) {
+        if (!isset($_SERVER['HTTP_X_ROLLBAR_ACCESS_TOKEN']) || !$_SERVER['HTTP_X_ROLLBAR_ACCESS_TOKEN']) {
             throw new Exception('Token missed');
         }
         if (!$result) {
@@ -42,7 +42,7 @@ class ErrorControllerQueue extends AbstractControllerQueue {
             throw new Exception('Body request is not json');
         }
         $queue = new QueueAccessor($this->_config['error_queue'], ErrorControllerQueue::QUEUE_NAME);
-        $queue->push(array('engine'=>self::ENGINE_ROLLBAR,'token' => $_GET['token'],'result' => $result));
+        $queue->push(array('engine'=>self::ENGINE_ROLLBAR,'token' => $_SERVER['HTTP_X_ROLLBAR_ACCESS_TOKEN'],'result' => $result));
 
     }
 
