@@ -7,7 +7,7 @@
  */
 class ErrorControllerQueue extends AbstractControllerQueue {
 
-    const QUEUE_NAME = 'error';
+    const QUEUE_NAME = 'queue_error';
 
     const ENGINE_GRAYLOG = 'graylog';
     const ENGINE_ROLLBAR = 'rollbar';
